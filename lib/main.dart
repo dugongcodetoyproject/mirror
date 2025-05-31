@@ -317,24 +317,40 @@ class _MirrorScreenState extends State<MirrorScreen> with WidgetsBindingObserver
         child: Stack(
           fit: StackFit.expand,
           children: [
-            // 1) 카메라 미리보기 (Mirror)
-            _isFrozen
-                ? Container(
-                    color: Colors.black,
-                    child: Center(
-                      child: Icon(
-                        Icons.pause_circle_filled,
-                        color: Colors.white.withOpacity(0.7),
-                        size: 100,
-                      ),
-                    ),
-                  )
-                : AspectRatio(
-                    aspectRatio: _controller!.value.aspectRatio,
-                    child: CameraPreview(_controller!),
-                  ),
+            // 카메라 미리보기 (배경으로)
+            Center(
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height,
+                child: _isFrozen
+                    ? Container(
+                        color: Colors.black.withOpacity(0.5),
+                        child: Center(
+                          child: Icon(
+                            Icons.pause_circle_filled,
+                            color: Colors.white.withOpacity(0.7),
+                            size: 100,
+                          ),
+                        ),
+                      )
+                    : CameraPreview(_controller!),
+              ),
+            ),
 
-            // 2) 컨트롤 UI
+            // 배경 이미지 (거울 프레임)
+            Positioned(
+              top: 0,
+              left: 0,
+              right: 0,
+              child: Image.asset(
+                'assets/background/back-mirror-1.png',
+                fit: BoxFit.cover,
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height,
+              ),
+            ),
+
+            // 컨트롤 UI
             AnimatedOpacity(
               opacity: _isControlsVisible ? 1.0 : 0.0,
               duration: Duration(milliseconds: 300),

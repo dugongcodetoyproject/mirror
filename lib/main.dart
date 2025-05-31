@@ -321,7 +321,7 @@ class _MirrorScreenState extends State<MirrorScreen> with WidgetsBindingObserver
             Center(
               child: Container(
                 width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height,
+                height: MediaQuery.of(context).size.width * 16/9, // 16:9 비율로 조정
                 child: _isFrozen
                     ? Container(
                         color: Colors.black.withOpacity(0.5),
@@ -344,7 +344,7 @@ class _MirrorScreenState extends State<MirrorScreen> with WidgetsBindingObserver
               right: 0,
               child: Image.asset(
                 'assets/background/back-mirror-1.png',
-                fit: BoxFit.cover,
+                fit: BoxFit.contain,
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height,
               ),
